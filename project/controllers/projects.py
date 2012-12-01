@@ -21,13 +21,19 @@ def env():
     return render_template('main/mongo.html', body=body)
 
 
+@app.route('/<file_name>.txt')
+def send_text_file(file_name):
+    full_file_name = file_name + '.txt'
+    return app.send_static_file(full_file_name)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return (render_template('errors/404.html'), 404)
 
 
 @app.errorhandler(403)
-def page_not_found(e):
+def forbidden_page(e):
     return (render_template('errors/403.html'), 403)
 
 
